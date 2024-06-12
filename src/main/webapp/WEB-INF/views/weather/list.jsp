@@ -15,6 +15,7 @@
 	<table class="tbl">
 		<thead>
 			<tr>
+				<th>번호</th>
 				<th>도시</th>
 				<th>기온</th>
 			</tr>	
@@ -22,7 +23,8 @@
 		<tbody>
 			<c:forEach items="${requestScope.list}" var="w">
 				<tr>
-					<td>${pageScope.w.city}</td>
+					<td>${pageScope.w.num}</td>
+					<td><a href="./detail">${pageScope.w.city}</a></td>
 					<td>${pageScope.w.temperature}</td>
 				</tr>
 			</c:forEach>
