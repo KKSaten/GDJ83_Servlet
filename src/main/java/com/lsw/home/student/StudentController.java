@@ -9,15 +9,9 @@ import com.lsw.home.Action;
 public class StudentController {
 	
 	private StudentService studentService;
-	
 	public StudentController() {
-		this.studentService = new StudentService();
+		studentService = new StudentService();
 	}
-	
-	public StudentController(StudentService studentService) {
-		this.studentService = studentService;
-	}
-	
 	
 
 	public Action start(HttpServletRequest request) {
@@ -29,7 +23,6 @@ public class StudentController {
 		
 		String uri = request.getRequestURI();
 		uri = uri.substring(uri.lastIndexOf("/"));
-		System.out.println(uri);
 		
 		Action action = new Action();
 		action.setFlag(true);
@@ -37,14 +30,14 @@ public class StudentController {
 		String method = request.getMethod();
 		
 		if(uri.equals("/list")) {
-			List<Student> ar = studentService.getStudents();
+			List<StudentDTO> ar = studentService.getStudents();
 			request.setAttribute("list", ar);
 			action.setPath("/WEB-INF/views/student/list.jsp");
 		}else if(uri.equals("/add")) {
 			
 			if(method.toUpperCase().equals("POST")) {//method값이 대문자인지 소문자인지를 모르니까 걍 대문자로 통일
 				System.out.println("학생 등록 데이터를 꺼내야 함");
-				Student student = new Student();
+				StudentDTO student = new StudentDTO();
 				String name = request.getParameter("name");
 				int num = Integer.parseInt(request.getParameter("num"));
 				double avg = Double.parseDouble(request.getParameter("avg"));
@@ -69,9 +62,19 @@ public class StudentController {
 		}else if(uri.equals("/delete")) {
 			action.setPath("/WEB-INF/views/student/delete.jsp");
 		}else if(uri.equals("/detail")) {
-			Student student = this.studentService.makeStudent();
-			request.setAttribute("std", student);
-			action.setPath("/WEB-INF/views/student/detail.jsp");
+			String num = request.getParameter("num");
+			StudentDTO studentDTO = new StudentDTO();
+			studentDTO.setNum(Integer.parseInt(num));
+			studentDTO = studentService.getDetail(studentDTO);
+			
+			if(studentDTO != null) {				
+				request.setAttribute("std", studentDTO);
+				action.setPath("/WEB-INF/views/student/detail.jsp");
+			}else {
+				request.setAttribute("message", "정보가 없습니다");
+				action.setPath("/WEB-INF/views/commons/message.jsp");
+			}
+			
 		}else {
 			
 		}

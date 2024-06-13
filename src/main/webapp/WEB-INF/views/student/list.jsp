@@ -8,17 +8,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href = "/resources/css/tables.css" rel="stylesheet">
+<link href = "/resources/css/tables.css" rel = "stylesheet">
 
 </head>
 <body>
 
-	<h1>학생전체정보 페이지</h1>
+	<h1>학생정보리스트 페이지</h1>
 	
 	
-	<div>
+	<!-- <div>
 		<img alt="" src="/resources/images/cat2.jpg" width = 400px height = 400px>
-	</div>
+	</div> -->
 	
 	
 	<table border = "1" class = "tbl">
@@ -33,7 +33,7 @@
 			<c:forEach items = "${requestScope.list}" var = "student">
 				<tr>
 					<td>${pageScope.student.num}</td>
-					<td>${pageScope.student.name}</td>
+					<td><a href = "./detail?num=${pageScope.student.num}">${pageScope.student.name}</a></td>
 					<td>${pageScope.student.avg}</td>
 				</tr>
 			</c:forEach>
@@ -43,13 +43,13 @@
 	</table>
 	
 	<!-- JSTL -->
-	<c:forEach items = "${requestScope.list}" var = "student">
-		<!--  <tag attribute = ""> contents </tag> -->
+	<%-- <c:forEach items = "${requestScope.list}" var = "student">
+		<!--  <tag attribute = ""> contents </tag> 
 		<h3>번호 : ${pageScope.student.num}</h3>
 		<h3>이름 : ${pageScope.student.name}</h3>
 		<h3>평균 : ${pageScope.student.avg}</h3>
 		<hr>
-	</c:forEach>
+	</c:forEach> --%>
 
 </body>
 </html>

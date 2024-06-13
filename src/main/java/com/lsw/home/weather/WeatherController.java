@@ -9,7 +9,6 @@ import com.lsw.home.Action;
 public class WeatherController {
 	
 	private WeatherService wc;
-	
 	public WeatherController() {
 		wc = new WeatherService();
 	}
@@ -38,7 +37,21 @@ public class WeatherController {
 		}else if(uri.equals("/delete")) {
 			action.setPath("/WEB-INF/views/weather/delete.jsp");
 		}else if(uri.equals("/detail")) {
-			action.setPath("/WEB-INF/views/weather/detail.jsp");
+			//jsp는 동일한데 어느 도시를 클릭하냐에 따라 다른 데이터가 나와야하는데 어떻게 할 것인가?
+			//중복되지 않는 데이터, 구분할 수 있는 데이터를 보내야 서로 다른 결과물을 보여줄 수 있다
+			//지역명, 기온 같은 데이터는 중복될 가능성이 있으니 도시번호가 가장 확실
+			String num = request.getParameter("num");
+			WeatherDTO weatherDTO = new WeatherDTO();
+			weatherDTO.setNum(Long.parseLong(num));
+			weatherDTO = wc.getDetail(weatherDTO);
+			
+			if(weatherDTO != null) {
+				request.setAttribute("dto", weatherDTO);
+				action.setPath("/WEB-INF/views/weather/detail.jsp");
+			}else {
+				request.setAttribute("message", "정보가 없습니다");
+				action.setPath("/WEB-INF/views/commons/message.jsp");
+			}
 		}else {
 			
 		}

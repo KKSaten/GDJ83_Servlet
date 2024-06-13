@@ -7,13 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h1>날씨정보 페이지</h1>
 	
-	<h3>${requestScope.dto.city}</h3>
-	<h3>${requestScope.dto.temperature}</h3>
-	<h3>${requestScope.dto.status}</h3>
-	<h3>${requestScope.dto.huminity}</h3>
+	<h1>${requestScope.message}</h1>
 
 </body>
 </html>
