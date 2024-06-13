@@ -3,6 +3,7 @@ package com.lsw.home.weather;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -30,7 +31,7 @@ public class WeatherDAO {
 			while(true) {
 				String s = br.readLine();
 				
-				if (s == null) {
+				if (s.length() < 4) {
 					break;
 				}
 				s = s.replace(",", "-");
@@ -82,5 +83,34 @@ public class WeatherDAO {
 		return result;
 		
 	}//getDetail() 끝
+	
+	
+	//add메서드
+	public WeatherDTO add(WeatherDTO weatherDTO) throws Exception{
+		
+		List<WeatherDTO> ar = this.getWeathers();
+		
+		//도시명-기온-상태-습도		
+		StringBuffer sb = new StringBuffer();
+		sb.append(ar.size() + 1);//num
+		sb.append("-");
+		sb.append(weatherDTO.getCity());
+		sb.append("-");
+		sb.append(weatherDTO.getTemperature());
+		sb.append("-");
+		sb.append(weatherDTO.getStatus());
+		sb.append("-");
+		sb.append(weatherDTO.getHuminity());
+		
+		System.out.println(sb);
+		
+		File file = new File("C:\\study", "weather.txt");
+		FileWriter fw = new FileWriter(file, true);
+		fw.write(sb+"\r\n");
+		fw.flush();
+		
+		
+		return weatherDTO;
+	}
 	
 }

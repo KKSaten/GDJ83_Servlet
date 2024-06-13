@@ -36,5 +36,10 @@
 	
 	</table>
 	
+	<div>
+		<a href = "./add">날씨 등록</a>
+	</div>
+	
+	
 </body>
 </html>

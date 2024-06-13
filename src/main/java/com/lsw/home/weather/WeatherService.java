@@ -14,7 +14,7 @@ public class WeatherService {
 		List<WeatherDTO> ar = weatherDAO.getWeathers(); 
 		
 		return ar;
-	}
+	}//getWeathers() 끝
 	
 	
 	//detail을 가져오는 용도
@@ -28,8 +28,20 @@ public class WeatherService {
 		}
 		
 		return weatherDTO;
-
+	}//getDetail() 끝
+	
+	//추가하는 메서드
+	public WeatherDTO add(WeatherDTO weatherDTO) {
+		try {
+			weatherDTO = weatherDAO.add(weatherDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-	}
+		
+		return weatherDTO;
+		
+	}//add() 끝
 
 }
