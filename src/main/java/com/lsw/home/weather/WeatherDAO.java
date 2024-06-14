@@ -102,15 +102,50 @@ public class WeatherDAO {
 		sb.append("-");
 		sb.append(weatherDTO.getHumidity());
 		
-		System.out.println(sb);
-		
 		File file = new File("C:\\study", "weather.txt");
 		FileWriter fw = new FileWriter(file, true);
 		fw.write(sb+"\r\n");
 		fw.flush();
 		
+		fw.close();
+		
 		
 		return weatherDTO;
 	}
+	
+	
+	
+	public WeatherDTO delete(WeatherDTO weatherDTO) throws Exception{
+		
+		File file = new File("C:\\study", "weather.txt");
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		
+		System.out.println("delete 작동중");
+		String s = "";
+		FileWriter fw = new FileWriter(file, true);
+		while( s!=null ) {
+			s = br.readLine();
+			s = s.replace("-", ",");
+			s = s.replace(",", "-");
+			System.out.println(s);
+			
+			StringTokenizer st = new StringTokenizer(s, "-");
+			if(st.nextToken().trim().equals(weatherDTO.getNum()+"")) {
+				fw.write("");
+			} else {				
+				fw.write(s+"\n");
+			}
+		}
+		fw.close();
+		br.close();
+		fr.close();
+		
+		return weatherDTO;
+	}//delete 끝
+	
+	
+	
+	
 	
 }

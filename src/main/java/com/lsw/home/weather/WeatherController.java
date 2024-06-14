@@ -62,7 +62,14 @@ public class WeatherController {
 			}
 			
 		}else if(uri.equals("/delete")) {
-			action.setPath("/WEB-INF/views/weather/delete.jsp");
+			String num = request.getParameter("num");
+			WeatherDTO weatherDTO = new WeatherDTO();
+			weatherDTO.setNum(Long.parseLong(num));
+			weatherDTO = wc.delete(weatherDTO);
+			
+			action.setPath("/weather/list");
+			action.setFlag(false);
+			
 		}else if(uri.equals("/detail")) {
 			//jsp는 동일한데 어느 도시를 클릭하냐에 따라 다른 데이터가 나와야하는데 어떻게 할 것인가?
 			//중복되지 않는 데이터, 구분할 수 있는 데이터를 보내야 서로 다른 결과물을 보여줄 수 있다
