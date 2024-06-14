@@ -85,7 +85,9 @@ public class FrontController extends HttpServlet {
 			
 			if(action.isFlag()) {
 				RequestDispatcher view = request.getRequestDispatcher(action.getPath());
-				view.forward(request, response);				
+				view.forward(request, response);
+				
+				
 			}else {
 				response.sendRedirect(action.getPath());
 			}

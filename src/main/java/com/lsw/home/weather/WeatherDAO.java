@@ -31,7 +31,7 @@ public class WeatherDAO {
 			while(true) {
 				String s = br.readLine();
 				
-				if (s.length() < 4) {
+				if (s == null) {
 					break;
 				}
 				s = s.replace(",", "-");
@@ -42,7 +42,7 @@ public class WeatherDAO {
 					weatherDTO.setCity(st.nextToken().trim());
 					weatherDTO.setTemperature(Double.parseDouble(st.nextToken().trim()));
 					weatherDTO.setStatus(st.nextToken().trim());
-					weatherDTO.setHuminity(Integer.parseInt(st.nextToken().trim()));
+					weatherDTO.setHumidity(Integer.parseInt(st.nextToken().trim()));
 					ar.add(weatherDTO);
 				}//while문 끝
 				
@@ -100,7 +100,7 @@ public class WeatherDAO {
 		sb.append("-");
 		sb.append(weatherDTO.getStatus());
 		sb.append("-");
-		sb.append(weatherDTO.getHuminity());
+		sb.append(weatherDTO.getHumidity());
 		
 		System.out.println(sb);
 		

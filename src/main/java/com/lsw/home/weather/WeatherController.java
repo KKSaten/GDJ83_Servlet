@@ -41,15 +41,22 @@ public class WeatherController {
 				String city = request.getParameter("city");
 				double temperature = Double.parseDouble(request.getParameter("temperature"));
 				String status = request.getParameter("status");
-				int huminity = Integer.parseInt(request.getParameter("huminity"));
+				int humidity = Integer.parseInt(request.getParameter("humidity"));
 				
 				WeatherDTO weatherDTO = new WeatherDTO();
 				weatherDTO.setCity(city);
 				weatherDTO.setTemperature(temperature);
 				weatherDTO.setStatus(status);
-				weatherDTO.setHuminity(huminity);
+				weatherDTO.setHumidity(humidity);
 				weatherDTO = wc.add(weatherDTO);
-				action.setPath("/WEB-INF/views/weather/add.jsp");
+				
+//				List<WeatherDTO> ar = wc.getWeathers();
+//				request.setAttribute("list", ar); //forward방식을 위한 코드였음
+//				action.setPath("/WEB-INF/views/weather/list.jsp"); //forward방식
+				
+				action.setPath("/weather/list"); //redirect방식
+				action.setFlag(false);
+				
 			}else {
 				action.setPath("/WEB-INF/views/weather/add.jsp");				
 			}

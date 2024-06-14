@@ -28,7 +28,7 @@
 		
 		<div>
 			<label>습도</label>
-			<input type="text" name="huminity">
+			<input type="text" name="humidity">
 		</div>
 		
 		

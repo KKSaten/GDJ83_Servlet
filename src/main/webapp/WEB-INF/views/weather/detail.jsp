@@ -13,7 +13,7 @@
 	<h3>${requestScope.dto.city}</h3>
 	<h3>${requestScope.dto.temperature}</h3>
 	<h3>${requestScope.dto.status}</h3>
-	<h3>${requestScope.dto.huminity}</h3>
+	<h3>${requestScope.dto.humidity}</h3>
 
 </body>
 </html>
