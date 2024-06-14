@@ -45,6 +45,8 @@
 			frm.setAttribute("action", "update");
 			frm.action = "update"
 			
+			frm.submit();
+			
 		})
 		
 		
