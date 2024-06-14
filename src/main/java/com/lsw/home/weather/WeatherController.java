@@ -68,7 +68,7 @@ public class WeatherController {
 			weatherDTO = wc.delete(weatherDTO);
 			
 			action.setPath("/weather/list");
-			action.setFlag(false);
+			action.setFlag(false);//이유는FrontController 참조
 			
 		}else if(uri.equals("/detail")) {
 			//jsp는 동일한데 어느 도시를 클릭하냐에 따라 다른 데이터가 나와야하는데 어떻게 할 것인가?
@@ -86,6 +86,19 @@ public class WeatherController {
 				request.setAttribute("message", "정보가 없습니다");
 				action.setPath("/WEB-INF/views/commons/message.jsp");
 			}
+		}else if(uri.equals("/update")) {
+			
+			if(method.toUpperCase().equals("POST")) {
+				
+			}else {
+				
+				WeatherDTO weatherDTO = new WeatherDTO();
+				weatherDTO.setNum(Long.parseLong(request.getParameter("num")));
+				weatherDTO = wc.getDetail(weatherDTO);
+				request.setAttribute("dto", weatherDTO);
+				action.setPath("/WEB-INF/views/weather/update.jsp");
+			}
+			
 		}else {
 			
 		}

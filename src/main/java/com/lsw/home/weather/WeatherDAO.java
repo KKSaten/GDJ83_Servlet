@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -92,7 +93,8 @@ public class WeatherDAO {
 		
 		//도시명-기온-상태-습도		
 		StringBuffer sb = new StringBuffer();
-		sb.append(ar.size() + 1);//num
+		Calendar ca = Calendar.getInstance();
+		sb.append(ca.getTimeInMillis());//num대신 절대 중복될 수 없는 밀리초 단위의 시간으로. 
 		sb.append("-");
 		sb.append(weatherDTO.getCity());
 		sb.append("-");

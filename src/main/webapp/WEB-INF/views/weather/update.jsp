@@ -7,13 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h1>날씨정보입력 페이지</h1>
+	<h1>수정 페이지</h1>
 	
-	<form action="./add" method="post">
+	<form action="update" method="post">
+	
+		<input type="hidden" name="num" value="${dto.num}">
+	
 		<div>
 			<label>도시명</label>
-			<input type="text" name="city">
+			<input type="text" name="city" value="${requestScope.dto.city}">
 		</div>
 		
 		<div>
@@ -40,6 +42,6 @@
 		<input type="submit" value="등록">
 	
 	</form>
-
+	
 </body>
 </html>
