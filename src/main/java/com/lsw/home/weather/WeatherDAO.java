@@ -35,6 +35,10 @@ public class WeatherDAO {
 				if (s == null) {
 					break;
 				}
+				if (s.isEmpty()) {
+					
+				}
+				
 				s = s.replace(",", "-");
 				StringTokenizer st = new StringTokenizer(s, "-");
 				while(st.hasMoreTokens()) {
@@ -87,7 +91,7 @@ public class WeatherDAO {
 	
 	
 	//add메서드
-	public WeatherDTO add(WeatherDTO weatherDTO) throws Exception{
+	public void add(WeatherDTO weatherDTO) throws Exception{
 		
 		List<WeatherDTO> ar = this.getWeathers();
 		
@@ -110,42 +114,115 @@ public class WeatherDAO {
 		fw.flush();
 		
 		fw.close();
-		
-		
-		return weatherDTO;
 	}
 	
 	
 	
-	public WeatherDTO delete(WeatherDTO weatherDTO) throws Exception{
+	public void delete(WeatherDTO weatherDTO) throws Exception{
 		
-		File file = new File("C:\\study", "weather.txt");
-		FileReader fr = new FileReader(file);
-		BufferedReader br = new BufferedReader(fr);
-		
-		System.out.println("delete 작동중");
-		String s = "";
-		FileWriter fw = new FileWriter(file, true);
-		while( s!=null ) {
-			s = br.readLine();
-			s = s.replace("-", ",");
-			s = s.replace(",", "-");
-			System.out.println(s);
-			
-			StringTokenizer st = new StringTokenizer(s, "-");
-			if(st.nextToken().trim().equals(weatherDTO.getNum()+"")) {
-				fw.write("");
-			} else {				
-				fw.write(s+"\n");
+		// list불러와서
+		// 지울려고 하는 num과 일치하는 것을 리스트에서 삭제
+		// list를 파일에 다시 저장
+		List<WeatherDTO> list = this.getWeathers();
+		for (WeatherDTO dto : list) {
+			if (dto.getNum() == weatherDTO.getNum()) {
+				list.remove(dto);
+				break;
 			}
+			// 안지우고도 continue를 통해서 하기 코드와 동일하게 쓸 수 있음
 		}
-		fw.close();
-		br.close();
-		fr.close();
+
+		// list를 파일에 작성
+		File file = new File("C:\\study", "weather.txt");
+		FileWriter fw = new FileWriter(file, false); // false는 덮어 씌우는 것
+		// 반복문 --> index 번호 필요없다.
+		// 하나의 날씨 정보 일렬로
+
+		// 하나 꺼내서 쓰고 하나꺼내서 쓰자
+		// 절대 중복될 수 없는 숫자.. --> 시간은 계속 흘러감 중복되는 시간은 없나
+		for (WeatherDTO dto : list) {
+			StringBuffer stringBuffer = new StringBuffer(); // 반복문 돌떄마다 새로운 객체 생성
+			stringBuffer.append(dto.getNum()); // 넘버 첫번쨰로 나오게 하고
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getCity());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getTemperature());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getStatus());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getHumidity());
+			fw.write(stringBuffer.toString() + "\r\n");
+			fw.flush();
+		}
 		
-		return weatherDTO;
+		
+		
+//		File file = new File("C:\\study", "weather.txt");
+//		FileReader fr = new FileReader(file);
+//		BufferedReader br = new BufferedReader(fr);
+//		
+//		System.out.println("delete 작동중");
+//		String s = "";
+//		FileWriter fw = new FileWriter(file, true);
+//		while( s!=null ) {
+//			s = br.readLine();
+//			s = s.replace("-", ",");
+//			s = s.replace(",", "-");
+//			System.out.println(s);
+//			
+//			StringTokenizer st = new StringTokenizer(s, "-");
+//			if(st.nextToken().trim().equals(weatherDTO.getNum()+"")) {
+//				fw.write("");
+//			} else {				
+//				fw.write(s+"\n");
+//			}
+//		}
+//		fw.close();
+//		br.close();
+//		fr.close();
+//		
+//		return weatherDTO;
 	}//delete 끝
 	
+	
+	
+	//update
+	public void update(WeatherDTO weatherDTO) throws Exception {
+		List<WeatherDTO> ar = this.getWeathers();
+		
+		//add(Object); 끝에 추가
+		//add(index, Object); 삽입
+		//set(index, Object); 수정
+		
+		for(int i=0; i<ar.size(); i++) {
+			if(weatherDTO.getNum() == ar.get(i).getNum()) {
+				ar.get(i).setCity(weatherDTO.getCity());
+				ar.set(i, weatherDTO);
+				break;
+			}	
+		}
+		
+		File file = new File("c:\\study\\weather.txt");
+
+		FileWriter fw = new FileWriter(file, false);
+		StringBuffer stringBuffer = new StringBuffer();
+		for (WeatherDTO dto : ar) {
+			stringBuffer.append(dto.getNum());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getCity());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getTemperature());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getStatus());
+			stringBuffer.append("-");
+			stringBuffer.append(dto.getHumidity());
+			stringBuffer.append("\r\n");
+		}
+		fw.write(stringBuffer.toString() + "\r\n");
+		fw.flush();
+		
+		fw.close();
+	}
 	
 	
 	

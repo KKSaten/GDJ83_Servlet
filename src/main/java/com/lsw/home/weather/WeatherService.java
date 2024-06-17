@@ -31,29 +31,39 @@ public class WeatherService {
 	}//getDetail() 끝
 	
 	//추가하는 메서드
-	public WeatherDTO add(WeatherDTO weatherDTO) {
+	public void add(WeatherDTO weatherDTO) {
 		try {
-			weatherDTO = weatherDAO.add(weatherDTO);
+			weatherDAO.add(weatherDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-		return weatherDTO;
+		//생각해보니까 add, delete, update 등의 메서드는 리턴을 할 필요가 없다
+		//요녀석들의 기능 자체가 파일에 대한 내용의 수정일뿐이고 값을 가져와서 보여주는 것은
+		//위의 getList 메서드와 getDetail 메서드이므로 얘네만 리턴값을 받으면 된다.
 		
 	}//add() 끝
 
 	
-	public WeatherDTO delete(WeatherDTO weatherDTO) {
+	public List<WeatherDTO> delete(WeatherDTO weatherDTO) {
+		List<WeatherDTO> ar = null;
 		try {
-			weatherDTO = weatherDAO.delete(weatherDTO);
+			weatherDAO.delete(weatherDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return weatherDTO;
+		return ar;
+	}
+	
+	
+	public void update(WeatherDTO weatherDTO) {
+		try {
+			weatherDAO.update(weatherDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
